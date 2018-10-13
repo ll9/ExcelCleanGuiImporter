@@ -75,6 +75,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\DataTypes.cs" />
+    <Compile Include="Utils\DataRowTypeGuesser.cs" />
     <Compile Include="Utils\ExcelReader.cs" />
     <Compile Include="View\ImportDialog.cs">
       <SubType>Form</SubType>

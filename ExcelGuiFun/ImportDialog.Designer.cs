@@ -1,6 +1,6 @@
 ﻿namespace ExcelGuiFun
 {
-    partial class Form1
+    partial class ImportDialog
     {
         /// <summary>
         /// Erforderliche Designervariable.

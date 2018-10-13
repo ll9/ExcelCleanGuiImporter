@@ -13,10 +13,10 @@ namespace ExcelGuiFun.Utils
         private string _fileName;
         private IXLWorkbook _workbook;
 
-        public ExcelReader(string fileName)
+        public ExcelReader(string fileName, IXLWorkbook xLWorkbook = null)
         {
             _fileName = fileName;
-            _workbook = new XLWorkbook(fileName);
+            _workbook = xLWorkbook ?? new XLWorkbook(fileName);
         }
 
         /// <summary>

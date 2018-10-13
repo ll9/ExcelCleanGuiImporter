@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExcelGuiFun.Models
 {
-    public enum DataTypes
+    public enum DataType
     {
         System_Bool = 1,
         System_Date = 2,

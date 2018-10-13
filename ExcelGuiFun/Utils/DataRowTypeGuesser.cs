@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExcelGuiFun.Utils
 {
-    class DataColumnTypeGuesser
+    public class DataColumnTypeGuesser
     {
         private DataTable _dataTable;
 
@@ -21,10 +21,15 @@ namespace ExcelGuiFun.Utils
             }
         }
 
-        public DataType GuessType(int index)
+        /// <summary>
+        /// Guesses type of the DataTable column
+        /// </summary>
+        /// <param name="columnIndex"></param>
+        /// <returns></returns>
+        public DataType GuessType(int columnIndex)
         {
             // Retrun Text Type when there are only empty rows
-            if (_dataTable.Rows.Cast<DataRow>().Distinct().Count() == 1 && string.IsNullOrEmpty(_dataTable.Rows[index][0].ToString()))
+            if (_dataTable.Rows.Cast<DataRow>().Select(row => row[columnIndex]).Distinct().Count() == 1 && string.IsNullOrEmpty(_dataTable.Rows[columnIndex][0].ToString()))
             {
                 return DataType.System_Text;
             }
@@ -35,7 +40,7 @@ namespace ExcelGuiFun.Utils
                 int i;
                 for (i = 0; i < _dataTable.Rows.Count; i++)
                 {
-                    var guessedType = GuessType(_dataTable.Rows[index][i].ToString());
+                    var guessedType = GuessType(_dataTable.Rows[i][columnIndex].ToString());
                     if (!guessedType.HasFlag(type))
                     {
                         break;
@@ -50,16 +55,16 @@ namespace ExcelGuiFun.Utils
             return DataType.System_Text;
         }
 
-        private DataType GuessType(string v)
+        private DataType GuessType(string value)
         {
-            if (string.IsNullOrEmpty(v))
+            if (string.IsNullOrEmpty(value))
             {
                 return (DataType.System_Bool | DataType.System_Date | DataType.System_Numeric | DataType.System_Text);
             }
 
-            if (bool.TryParse(v, out var boolResult)) return DataType.System_Bool;
-            if (DateTime.TryParse(v, out var dateResult)) return DataType.System_Date;
-            if (long.TryParse(v, out var numericResult)) return DataType.System_Numeric;
+            if (bool.TryParse(value, out var boolResult)) return DataType.System_Bool;
+            if (DateTime.TryParse(value, out var dateResult)) return DataType.System_Date;
+            if (long.TryParse(value, out var numericResult)) return DataType.System_Numeric;
             return DataType.System_Text;
         }
     }

@@ -12,10 +12,10 @@ namespace ExcelGuiFunUnitTests.Utils
     class ExcelReaderTests
     {
 
-        [Test]
         public void ExtractDataTable_AllCellsValid_ReturnDataTable()
         {
             var reader = new ExcelReader("filename");
+
         }
     }
 }

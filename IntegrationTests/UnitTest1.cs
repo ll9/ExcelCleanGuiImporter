@@ -8,7 +8,6 @@ namespace IntegrationTests
     [TestFixture]
     public class UnitTest1
     {
-        [Test]
         public void TestMethod1()
         {
             var path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);

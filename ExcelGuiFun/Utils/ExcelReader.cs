@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ExcelGuiFun.Utils
 {
-    class ExcelReader
+    public class ExcelReader
     {
         private string _fileName;
         private IXLWorkbook _workbook;
@@ -33,6 +33,7 @@ namespace ExcelGuiFun.Utils
             var dataTable = new DataTable();
 
             var workSheet = _workbook.Worksheet(sheetPosition);
+            // Gets the range of the used Cells
             var firstRow = workSheet.FirstRowUsed().RowUsed();
             var columnNames = firstRow.Cells().Select(cell => cell.Value.ToString());
 

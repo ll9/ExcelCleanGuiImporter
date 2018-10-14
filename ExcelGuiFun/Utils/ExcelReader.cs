@@ -10,15 +10,6 @@ namespace ExcelGuiFun.Utils
 {
     public class ExcelReader
     {
-        private string _fileName;
-        private IXLWorkbook _workbook;
-
-        public ExcelReader(string fileName, IXLWorkbook xLWorkbook = null)
-        {
-            _fileName = fileName;
-            _workbook = xLWorkbook ?? new XLWorkbook(fileName);
-
-        }
 
         /// <summary>
         /// Returns a DataTable from an Excel Worksheet
@@ -29,13 +20,13 @@ namespace ExcelGuiFun.Utils
         /// </summary>
         /// <param name="sheetPosition">the position/ index of the worksheet (starts at 1)</param>
         /// <returns></returns>
-        public DataTable ExtractDataTable(int sheetPosition = 1)
+        public static DataTable ExtractDataTable(IXLWorksheet worksheet)
         {
             var dataTable = new DataTable();
 
-            var workSheet = _workbook.Worksheet(sheetPosition);
+
             // Gets the range of the used Cells
-            var firstRow = workSheet.FirstRowUsed().RowUsed();
+            var firstRow = worksheet.FirstRowUsed().RowUsed();
             var columnNames = firstRow.Cells().Select(cell => cell.Value.ToString());
 
             // Add columns to the DataTable
@@ -60,6 +51,20 @@ namespace ExcelGuiFun.Utils
             }
 
             return dataTable;
+        }
+
+        public static DataTable ExtractDataTable(string path, int sheetPosition = 1)
+        {
+            var worksheet = new XLWorkbook(path).Worksheet(sheetPosition);
+
+            return ExtractDataTable(worksheet);
+        }
+
+        public static DataTable ExtractDataTable(string path, string sheetName)
+        {
+            var worksheet = new XLWorkbook(path).Worksheet(sheetName);
+
+            return ExtractDataTable(worksheet);
         }
     }
 }

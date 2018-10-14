@@ -22,8 +22,7 @@ namespace ExcelGuiFun.Presenter
 
         private void GetDataTable(object sender, EventArgs e)
         {
-            var reader = new ExcelReader(View.Path);
-            _dataTable = reader.ExtractDataTable();
+            _dataTable = ExcelReader.ExtractDataTable(View.Path);
         }
 
         public IView View { get; }

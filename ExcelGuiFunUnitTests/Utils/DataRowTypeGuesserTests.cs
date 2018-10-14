@@ -16,7 +16,7 @@ namespace ExcelGuiFunUnitTests.Utils
         [Test]
         public void GuessType_EmptyDataTable_ThrowsArgumentNullException()
         {
-            Assert.That(() => new DataColumnTypeGuesser(null), Throws.ArgumentNullException);
+            Assert.That(() => new ColumnTypeGuesser(null), Throws.ArgumentNullException);
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace ExcelGuiFunUnitTests.Utils
             var dt = new DataTable();
             dt.Columns.Add("columnName");
 
-            Assert.That(() => new DataColumnTypeGuesser(dt), Throws.ArgumentException);
+            Assert.That(() => new ColumnTypeGuesser(dt), Throws.ArgumentException);
         }
 
         [Test]
@@ -38,7 +38,7 @@ namespace ExcelGuiFunUnitTests.Utils
             dt.Rows.Add(true);
             dt.Rows.Add("");
 
-            var typeGuesser = new DataColumnTypeGuesser(dt);
+            var typeGuesser = new ColumnTypeGuesser(dt);
 
             Assert.That(typeGuesser.GuessType(0), Is.EqualTo(DataType.System_Bool) );
         }
@@ -53,7 +53,7 @@ namespace ExcelGuiFunUnitTests.Utils
             dt.Rows.Add(long.MaxValue);
             dt.Rows.Add("");
 
-            var typeGuesser = new DataColumnTypeGuesser(dt);
+            var typeGuesser = new ColumnTypeGuesser(dt);
 
             Assert.That(typeGuesser.GuessType(0), Is.EqualTo(DataType.System_Numeric));
         }
@@ -68,7 +68,7 @@ namespace ExcelGuiFunUnitTests.Utils
             dt.Rows.Add(DateTime.Now.Subtract(DateTime.Now.AddDays(7)));
             dt.Rows.Add("");
 
-            var typeGuesser = new DataColumnTypeGuesser(dt);
+            var typeGuesser = new ColumnTypeGuesser(dt);
 
             Assert.That(typeGuesser.GuessType(0), Is.EqualTo(DataType.System_Date));
         }
@@ -83,7 +83,7 @@ namespace ExcelGuiFunUnitTests.Utils
             dt.Rows.Add("more Text");
             dt.Rows.Add("");
 
-            var typeGuesser = new DataColumnTypeGuesser(dt);
+            var typeGuesser = new ColumnTypeGuesser(dt);
 
             Assert.That(typeGuesser.GuessType(0), Is.EqualTo(DataType.System_Text));
         }
@@ -98,7 +98,7 @@ namespace ExcelGuiFunUnitTests.Utils
             dt.Rows.Add("");
             dt.Rows.Add("");
 
-            var typeGuesser = new DataColumnTypeGuesser(dt);
+            var typeGuesser = new ColumnTypeGuesser(dt);
 
             Assert.That(typeGuesser.GuessType(0), Is.EqualTo(DataType.System_Text));
         }

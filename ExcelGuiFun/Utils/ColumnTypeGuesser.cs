@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace ExcelGuiFun.Utils
 {
-    public class DataColumnTypeGuesser
+    public class ColumnTypeGuesser
     {
         private DataTable _dataTable;
 
-        public DataColumnTypeGuesser(DataTable dataTable)
+        public ColumnTypeGuesser(DataTable dataTable)
         {
             _dataTable = dataTable ?? throw new ArgumentNullException();
             if (_dataTable.Rows.Count == 0 || _dataTable.Columns.Count == 0)
@@ -53,6 +53,11 @@ namespace ExcelGuiFun.Utils
             }
 
             return DataType.System_Text;
+        }
+
+        public DataType GuessType(DataColumn column)
+        {
+            return GuessType(_dataTable.Columns.IndexOf(column));
         }
 
         private DataType GuessType(string value)

@@ -79,6 +79,7 @@
     <Compile Include="Presenter\Presenter.cs" />
     <Compile Include="Utils\DataRowTypeGuesser.cs" />
     <Compile Include="Utils\ExcelReader.cs" />
+    <Compile Include="Utils\TypeSafeDataTableConverter.cs" />
     <Compile Include="View\ImportDialog.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -12,38 +12,46 @@ namespace ExcelGuiFun.Utils
 {
     public class DbBuilder
     {
-        private static string _tableName;
+        private string _tableName;
+        private ISqliteService sqliteService;
 
-        public static DataTable Convert(DataTable originalTable)
+        public DbBuilder(string tableName, ISqliteService sqliteService)
         {
-            CreateTable(originalTable);
-
-            // Insert Rows
-            foreach (DataRow row in dataTable.Rows)
-            {
-                var newRow = dataTable.NewRow();
-                foreach (var item in dataTable.Columns.Cast<DataColumn>().Select(col => new { col.ColumnName, col.DataType }))
-                {
-                    newRow[item.ColumnName] = DataTypeExtensions.GetDynamicValue(item.DataType, row[item.ColumnName]);
-                }
-                dataTable.Rows.Add(newRow);
-            }
-            return dataTable;
+            _tableName = tableName;
+            this.sqliteService = sqliteService;
         }
 
-        private static void CreateTable(DataTable originalTable)
-        {
-            var query = $"CREATE TABLE {_tableName}";
+        //public  DataTable Convert(DataTable originalTable)
+        //{
+        //    CreateTable(originalTable);
 
+        //    // Insert Rows
+        //    foreach (DataRow row in dataTable.Rows)
+        //    {
+        //        var newRow = dataTable.NewRow();
+        //        foreach (var item in dataTable.Columns.Cast<DataColumn>().Select(col => new { col.ColumnName, col.DataType }))
+        //        {
+        //            newRow[item.ColumnName] = DataTypeExtensions.GetDynamicValue(item.DataType, row[item.ColumnName]);
+        //        }
+        //        dataTable.Rows.Add(newRow);
+        //    }
+        //    return dataTable;
+        //}
+
+        private void CreateTable(DataTable originalTable)
+        {
             var typeGuesser = new ColumnTypeGuesser(originalTable);
+            var createStatement = $"CREATE TABLE {_tableName}";
 
             var columns = string.Join(
                 ",",
                 originalTable.Columns.Cast<DataColumn>().Select(col => $"{col.ColumnName} {col.DataType.GetSqlType()}")
             );
-                
 
-            var finalQuery = $"{query} ({columns})";
+
+            var query = $"{createStatement} ({columns})";
+
+            sqliteService.ExecuteQuery(query);
         }
     }
 }

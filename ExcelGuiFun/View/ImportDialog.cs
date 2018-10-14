@@ -19,10 +19,23 @@ namespace ExcelGuiFun
         public string YCoordinate { get; set; }
         public bool HasCoordinates { get; set; }
 
+        public event EventHandler ReadingExcel;
+        public event EventHandler StoringDb;
+
         public ImportDialog()
         {
             InitializeComponent();
         }
 
+
+        public void OnReadingExcel(object sender, EventArgs args)
+        {
+            ReadingExcel?.Invoke(sender, EventArgs.Empty);
+        }
+
+        public void OnStroringDb(object sender, EventArgs args)
+        {
+            StoringDb?.Invoke(sender, EventArgs.Empty);
+        }
     }
 }

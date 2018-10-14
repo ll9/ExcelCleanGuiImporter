@@ -15,7 +15,7 @@ namespace ExcelGuiFun
     public partial class ImportDialog : Form, IView
     {
         public PathViewModel PathViewModel { get; set; } = new PathViewModel();
-        public string Path { get => PathPage.Text; }
+        public string Path { get => PathBox.Text; }
         public string Projektion { get; set; }
         public string XCoordinate { get; set; }
         public string YCoordinate { get; set; }
@@ -27,6 +27,7 @@ namespace ExcelGuiFun
         public ImportDialog()
         {
             InitializeComponent();
+            var presenter = new Presenter.Presenter(this);
 
             InitPathBinding();
             InitializePageCommitEvents();
@@ -34,7 +35,7 @@ namespace ExcelGuiFun
 
         private void InitializePageCommitEvents()
         {
-            PathPage.Commit += (sender, e) => ReadingExcel(sender, EventArgs.Empty);
+            PathPage.Commit += (sender, e) => OnReadingExcel(sender, EventArgs.Empty);
         }
 
         private void InitPathBinding()
@@ -60,7 +61,7 @@ namespace ExcelGuiFun
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                PathPage.Text = dialog.FileName;
+                PathBox.Text = dialog.FileName;
             }
         }
     }

@@ -38,20 +38,24 @@ namespace ExcelGuiFun.Utils
         //    return dataTable;
         //}
 
-        private void CreateTable(DataTable originalTable)
+        public void CreateTable(DataColumnCollection columnCollection)
         {
-            var typeGuesser = new ColumnTypeGuesser(originalTable);
             var createStatement = $"CREATE TABLE {_tableName}";
 
             var columns = string.Join(
-                ",",
-                originalTable.Columns.Cast<DataColumn>().Select(col => $"{col.ColumnName} {col.DataType.GetSqlType()}")
+                ", ",
+                columnCollection.Cast<DataColumn>().Select(col => $"{col.ColumnName} {col.DataType.GetSqlType()}")
             );
 
 
             var query = $"{createStatement} ({columns})";
 
             sqliteService.ExecuteQuery(query);
+        }
+
+        public void CreateTable(DataTable dataTable)
+        {
+            CreateTable(dataTable.Columns);
         }
     }
 }

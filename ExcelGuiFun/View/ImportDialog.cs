@@ -27,8 +27,14 @@ namespace ExcelGuiFun
         public ImportDialog()
         {
             InitializeComponent();
-            InitPathBinding();
 
+            InitPathBinding();
+            InitializePageCommitEvents();
+        }
+
+        private void InitializePageCommitEvents()
+        {
+            PathPage.Commit += (sender, e) => ReadingExcel(sender, EventArgs.Empty);
         }
 
         private void InitPathBinding()

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExcelGuiFun.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,11 +11,18 @@ using System.Windows.Forms;
 
 namespace ExcelGuiFun
 {
-    public partial class ImportDialog : Form
+    public partial class ImportDialog : Form, IView
     {
+        public string Path { get; set; }
+        public string Projektion { get; set; }
+        public string XCoordinate { get; set; }
+        public string YCoordinate { get; set; }
+        public bool HasCoordinates { get; set; }
+
         public ImportDialog()
         {
             InitializeComponent();
         }
+
     }
 }

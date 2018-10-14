@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ExcelGuiFun.Presenter
 {
-    class Presenter
+    public class Presenter
     {
         private DataTable _dataTable;
 

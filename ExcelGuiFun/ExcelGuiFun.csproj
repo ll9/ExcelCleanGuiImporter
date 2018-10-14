@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\DataTypes.cs" />
+    <Compile Include="Presenter\Presenter.cs" />
     <Compile Include="Utils\DataRowTypeGuesser.cs" />
     <Compile Include="Utils\ExcelReader.cs" />
     <Compile Include="View\ImportDialog.cs">
@@ -86,6 +87,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\IView.cs" />
     <EmbeddedResource Include="View\ImportDialog.resx">
       <DependentUpon>ImportDialog.cs</DependentUpon>
     </EmbeddedResource>

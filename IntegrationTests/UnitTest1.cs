@@ -1,24 +1,31 @@
 ﻿using System;
 using System.IO;
 using ExcelGuiFun.Utils;
+using Moq;
 using NUnit.Framework;
 
 namespace IntegrationTests
 {
-    public class UnitTest1
+    [TestFixture]
+    public class ExcelReaderTests
     {
-        public void TestMethod1()
+        private static readonly string _basePath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        private static readonly string _excelPath = _basePath + "\\hugedummy.xlsx";
+
+        private ExcelReader _reader;
+
+        [SetUp]
+        public void Initialize()
         {
-            var path = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            var excelFilePath = path + "\\hugedummy.xlsx";
+            _reader = new ExcelReader(_excelPath);
+        }
 
-            if (!File.Exists(excelFilePath))
-            {
-                throw new FileNotFoundException();
-            }
+        [Test]
+        public void ReadExcel_WhenCalled()
+        {
+            var result = _reader.ExtractDataTable().Rows.Count;
 
-            var reader = new ExcelReader(excelFilePath);
-            var table = reader.ExtractDataTable();
+            Assert.That(result, Is.EqualTo(9999));
         }
     }
 }

@@ -16,5 +16,8 @@ namespace ExcelGuiFun.View
 
         event EventHandler ReadingExcel;
         event EventHandler StoringDb;
+
+        void OnReadingExcel(object sender, EventArgs args);
+        void OnStroringDb(object sender, EventArgs args);
     }
 }

@@ -13,5 +13,11 @@ namespace ExcelGuiFun.View
         string XCoordinate { get; }
         string YCoordinate { get; }
         bool HasCoordinates { get; }
+
+        event EventHandler ReadingExcel;
+        event EventHandler StoringDb;
+
+        void OnReadingExcel(object sender, EventArgs args);
+        void OnStroringDb(object sender, EventArgs args);
     }
 }

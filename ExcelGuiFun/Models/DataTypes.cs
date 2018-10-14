@@ -13,4 +13,19 @@ namespace ExcelGuiFun.Models
         System_Numeric = 4,
         System_Text = 8,
     }
+
+    public static class DataTypeExtensions
+    {
+        public static Type GetRealType(this DataType dataType)
+        {
+            switch(dataType)
+            {
+                case (DataType.System_Bool): return typeof(bool);
+                case (DataType.System_Date): return typeof(DateTime);
+                case (DataType.System_Numeric): return typeof(long);
+                case (DataType.System_Text): return typeof(string);
+                default: return typeof(string);
+            }
+        }
+    }
 }

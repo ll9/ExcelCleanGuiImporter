@@ -71,5 +71,26 @@ namespace ExcelGuiFunUnitTests.Utils
             sqliteService.Verify(x =>
                 x.ExecuteQuery(query, It.IsAny<IEnumerable<Tuple<string, object>>>()));
         }
+
+        [Test]
+        public void InsertData_InsertNull_InsertsNull()
+        {
+            var table = new DataTable();
+            table.Columns.Add("boolColumn", typeof(bool));
+
+            var row = table.NewRow();
+            row[0] = DBNull.Value;
+
+            var parameters = new Tuple<string, object>[] {
+                new Tuple<string, object>("param0", null),
+            };
+            var query = $"INSERT INTO table([boolColumn]) " +
+                $"VALUES ({string.Join(", ", parameters.Select(p => p.Item1))})";
+
+            dbBuilder.InsertData(row);
+
+            sqliteService.Verify(x =>
+                x.ExecuteQuery(query, It.IsAny<IEnumerable<Tuple<string, object>>>()));
+        }
     }
 }

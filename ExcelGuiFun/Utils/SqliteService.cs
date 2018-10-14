@@ -15,9 +15,9 @@ namespace ExcelGuiFun.Utils
             _dbPath = dbPath;
         }
 
-        public void ExecuteQuery(string query, IEnumerable<Tuple<string, object>> parameters = null)
+        public void ExecuteQuery(string query, SQLiteConnection con = null, IEnumerable<Tuple<string, object>> parameters = null)
         {
-            using (SQLiteConnection connection = GetConnection())
+            using (SQLiteConnection connection = con ?? GetConnection())
             using (var command = new SQLiteCommand(query, connection))
             {
                 if (parameters != null)
@@ -28,12 +28,12 @@ namespace ExcelGuiFun.Utils
             }
         }
 
-        public void ExecuteTransaction(Action action)
+        public void ExecuteTransaction(Action<SQLiteConnection> action)
         {
             using (var connection = GetConnection())
             using (var transaction = connection.BeginTransaction())
             {
-                action();
+                action(connection);
                 transaction.Commit();
             }
         }

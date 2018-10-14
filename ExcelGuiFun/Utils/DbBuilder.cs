@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,16 +45,16 @@ namespace ExcelGuiFun.Utils
         public void InsertData(DataRowCollection rows)
         {
 
-            sqliteService.ExecuteTransaction(() =>
+            sqliteService.ExecuteTransaction((connection) =>
             {
                 foreach (DataRow row in rows)
                 {
-                    InsertData(row);
+                    InsertData(row, connection);
                 }
             });
         }
 
-        public void InsertData(DataRow row)
+        public void InsertData(DataRow row, SQLiteConnection connection = null)
         {
             var insertStatement = $"INSERT INTO {_tableName}";
             var columns = row.Table.Columns.Cast<DataColumn>().Select(col => $"[{col.ColumnName}]");
@@ -64,7 +65,7 @@ namespace ExcelGuiFun.Utils
             var parametersString = string.Join(", ", parameters.Select(param => param.Item1));
 
             var query = $"{insertStatement}({columnString}) VALUES ({parametersString})";
-            sqliteService.ExecuteQuery(query, parameters);
+            sqliteService.ExecuteQuery(query, connection, parameters);
         }
     }
 }

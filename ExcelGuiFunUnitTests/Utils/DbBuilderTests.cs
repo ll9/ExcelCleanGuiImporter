@@ -36,7 +36,7 @@ namespace ExcelGuiFunUnitTests.Utils
 
             dbBuilder.CreateTable(table);
             sqliteService.Verify(x =>
-                x.ExecuteQuery("CREATE TABLE table (boolColumn BOOLEAN, dateColumn DATETIME, longColumn BIGINT, textColumn TEXT, noTypeColumn TEXT)", null));
+                x.ExecuteQuery("CREATE TABLE table (boolColumn BOOLEAN, dateColumn DATETIME, longColumn BIGINT, textColumn TEXT, noTypeColumn TEXT)", null, null));
         }
 
         [Test]
@@ -69,7 +69,7 @@ namespace ExcelGuiFunUnitTests.Utils
             dbBuilder.InsertData(row);
 
             sqliteService.Verify(x =>
-                x.ExecuteQuery(query, It.IsAny<IEnumerable<Tuple<string, object>>>()));
+                x.ExecuteQuery(query, null, It.IsAny<IEnumerable<Tuple<string, object>>>()));
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace ExcelGuiFunUnitTests.Utils
             dbBuilder.InsertData(row);
 
             sqliteService.Verify(x =>
-                x.ExecuteQuery(query, It.IsAny<IEnumerable<Tuple<string, object>>>()));
+                x.ExecuteQuery(query, null, It.IsAny<IEnumerable<Tuple<string, object>>>()));
         }
     }
 }

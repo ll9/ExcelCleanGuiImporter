@@ -20,7 +20,7 @@ namespace ExcelGuiFunUnitTests.Utils
         public void Initialize()
         {
             sqliteService = new Mock<ISqliteService>();
-            dbBuilder = new DbBuilder("table", sqliteService.Object);
+            dbBuilder = new DbBuilder("myTable", sqliteService.Object);
         }
 
         [Test]

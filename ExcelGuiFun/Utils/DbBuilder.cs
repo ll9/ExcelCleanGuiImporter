@@ -27,7 +27,7 @@ namespace ExcelGuiFun.Utils
 
             var columns = string.Join(
                 ", ",
-                columnCollection.Cast<DataColumn>().Select(col => $"{col.ColumnName} {col.DataType.GetSqlType()}")
+                columnCollection.Cast<DataColumn>().Select(col => $"[{col.ColumnName}] {col.DataType.GetSqlType()}")
             );
 
 
@@ -60,7 +60,7 @@ namespace ExcelGuiFun.Utils
             var columnString = string.Join(", ", columns);
 
             var parameters = row.Table.Columns.Cast<DataColumn>()
-                .Select((col, index) => new Tuple<string, object>($"param{index}", DataTypeExtensions.GetDynamicValue(col.DataType, row[col])));
+                .Select((col, index) => new Tuple<string, object>($"@param{index}", DataTypeExtensions.GetDynamicValue(col.DataType, row[col])));
             var parametersString = string.Join(", ", parameters.Select(param => param.Item1));
 
             var query = $"{insertStatement}({columnString}) VALUES ({parametersString})";

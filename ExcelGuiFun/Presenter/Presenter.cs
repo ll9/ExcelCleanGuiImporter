@@ -3,6 +3,7 @@ using ExcelGuiFun.Utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,9 +25,12 @@ namespace ExcelGuiFun.Presenter
 
         private void StoreDataToDb(object sender, EventArgs e)
         {
-            const string tableName = "table";
+            const string tableName = "myTable";
             const string dbName = "temp.sqlite";
-            var sqliteService = new SqliteService(tableName, Application.StartupPath+ "\\" + dbName);
+            string dbPath = Application.StartupPath + "\\" + dbName;
+
+            if (File.Exists(dbPath)) File.Delete(dbPath);
+            var sqliteService = new SqliteService(tableName, dbPath);
 
             var dbBuilder = new DbBuilder(tableName, sqliteService);
 

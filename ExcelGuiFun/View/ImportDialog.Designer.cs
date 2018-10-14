@@ -83,6 +83,7 @@
             this.PathButton.TabIndex = 0;
             this.PathButton.Text = "Pfad";
             this.PathButton.UseVisualStyleBackColor = true;
+            this.PathButton.Click += new System.EventHandler(this.PathButton_Click);
             // 
             // CoordinatePage
             // 

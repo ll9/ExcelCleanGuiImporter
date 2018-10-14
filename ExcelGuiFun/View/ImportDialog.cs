@@ -15,7 +15,7 @@ namespace ExcelGuiFun
     public partial class ImportDialog : Form, IView
     {
         public PathViewModel PathViewModel { get; set; } = new PathViewModel();
-        public string Path { get; set; }
+        public string Path { get => PathPage.Text; }
         public string Projektion { get; set; }
         public string XCoordinate { get; set; }
         public string YCoordinate { get; set; }
@@ -46,6 +46,16 @@ namespace ExcelGuiFun
         public void OnStroringDb(object sender, EventArgs args)
         {
             StoringDb?.Invoke(sender, EventArgs.Empty);
+        }
+
+        private void PathButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog() { Filter = "Excel File (*.xlsx) | *.xlsx" };
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                PathPage.Text = dialog.FileName;
+            }
         }
     }
 }

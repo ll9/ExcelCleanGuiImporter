@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelGuiFun", "ExcelGuiFun\ExcelGuiFun.csproj", "{71B1B296-A4B5-4D20-AF32-EE5E6E249A6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelGuiConsoleTests", "IntegrationTests\ExcelGuiConsoleTests.csproj", "{4722B26C-2EC9-4AB3-9F6E-22836686928B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelGuiFunIntegrationTests", "IntegrationTests\ExcelGuiFunIntegrationTests.csproj", "{4722B26C-2EC9-4AB3-9F6E-22836686928B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelGuiFunUnitTests", "ExcelGuiFunUnitTests\ExcelGuiFunUnitTests.csproj", "{4446E166-59F1-4B63-9DC7-6D1DBD6C6CDE}"
 EndProject

@@ -21,11 +21,19 @@ namespace IntegrationTests
         }
 
         [Test]
-        public void ReadExcel_WhenCalled()
+        public void ReadExcel_ExcelSheetHas9999Rows_ReturnsRowCountOf9999()
         {
             var result = _reader.ExtractDataTable().Rows.Count;
 
             Assert.That(result, Is.EqualTo(9999));
+        }
+
+        [Test]
+        public void ReadExcel_ExcelSheetHas6Column_ReturnsColumnCountOf6()
+        {
+            var result = _reader.ExtractDataTable().Columns.Count;
+
+            Assert.That(result, Is.EqualTo(6));
         }
     }
 }

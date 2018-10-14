@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ExcelGuiFun.View
+namespace ExcelGuiFun
 {
     public interface IView
     {
+        bool HasCoordinates { get; set; }
         string Path { get; }
-        string Projektion { get; }
+        string Projektion { get; set; }
         string XCoordinate { get; }
+        List<string> XCoordinateCandidates { set; }
         string YCoordinate { get; }
-        bool HasCoordinates { get; }
+        List<string> YCoordinateCandidates { set; }
 
         event EventHandler ReadingExcel;
         event EventHandler StoringDb;

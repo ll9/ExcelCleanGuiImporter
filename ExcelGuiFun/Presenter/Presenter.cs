@@ -1,5 +1,4 @@
 ﻿using ExcelGuiFun.Utils;
-using ExcelGuiFun.View;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -37,6 +36,14 @@ namespace ExcelGuiFun.Presenter
         private void GetDataTable(object sender, EventArgs e)
         {
             _dataTable = ExcelReader.ExtractDataTable(View.Path);
+            View.XCoordinateCandidates = _dataTable.Columns.Cast<DataColumn>()
+                .Where(col => col.DataType == typeof(double))
+                .Select(col => col.ColumnName)
+                .ToList();
+            View.YCoordinateCandidates = _dataTable.Columns.Cast<DataColumn>()
+                .Where(col => col.DataType == typeof(double))
+                .Select(col => col.ColumnName)
+                .ToList();
         }
 
         public IView View { get; }

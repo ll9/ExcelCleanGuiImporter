@@ -1,5 +1,4 @@
-﻿using ExcelGuiFun.View;
-using ExcelGuiFun.ViewModels;
+﻿using ExcelGuiFun.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,12 +13,26 @@ namespace ExcelGuiFun
 {
     public partial class ImportDialog : Form, IView
     {
-        public PathViewModel PathViewModel { get; set; } = new PathViewModel();
+        private PathViewModel PathViewModel { get; set; } = new PathViewModel();
         public string Path { get => PathBox.Text; }
         public string Projektion { get; set; }
-        public string XCoordinate { get; set; }
-        public string YCoordinate { get; set; }
+        public string XCoordinate { get => XBox.Text; }
+        public string YCoordinate { get => YBox.Text; }
         public bool HasCoordinates { get; set; }
+        public List<string> XCoordinateCandidates
+        {
+            set
+            {
+                XBox.DataSource = value;
+            }
+        }
+        public List<string> YCoordinateCandidates
+        {
+            set
+            {
+                YBox.DataSource = value;
+            }
+        }
 
         public event EventHandler ReadingExcel;
         public event EventHandler StoringDb;

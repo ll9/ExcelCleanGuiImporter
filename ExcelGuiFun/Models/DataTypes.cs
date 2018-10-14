@@ -30,12 +30,12 @@ namespace ExcelGuiFun.Models
 
         public static dynamic GetDynamicValue(Type type, object value)
         {
-            var @switch = new Dictionary<Type, Func<dynamic>>()
+            var @switch = new Dictionary<Type, dynamic>()
             {
-                { typeof(bool?), () => bool.TryParse(value.ToString(), out var boolResult) ? (bool?)boolResult : null },
-                { typeof(DateTime?), () => DateTime.TryParse(value.ToString(), out var dateResult) ? (DateTime?)dateResult : null },
-                { typeof(long?), () => long.TryParse(value.ToString(), out var longResult) ? (long?)longResult : null },
-                { typeof(string), () => value?.ToString() },
+                { typeof(bool), bool.TryParse(value.ToString(), out var boolResult) ? (bool?)boolResult : null },
+                { typeof(DateTime), DateTime.TryParse(value.ToString(), out var dateResult) ? (DateTime?)dateResult : null },
+                { typeof(long), long.TryParse(value.ToString(), out var longResult) ? (long?)longResult : null },
+                { typeof(string), value?.ToString() },
             };
 
             return @switch[type];

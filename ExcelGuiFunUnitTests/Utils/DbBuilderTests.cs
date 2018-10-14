@@ -42,7 +42,34 @@ namespace ExcelGuiFunUnitTests.Utils
         [Test]
         public void InsertData_WhenCalled_InsertsData()
         {
+            var table = new DataTable();
+            table.Columns.Add("boolColumn", typeof(bool));
+            table.Columns.Add("dateColumn", typeof(DateTime));
+            table.Columns.Add("longColumn", typeof(long));
+            table.Columns.Add("textColumn", typeof(string));
+            table.Columns.Add("noTypeColumn");
 
+            var row = table.NewRow();
+            row[0] = true;
+            row[1] = DateTime.Now;
+            row[2] = long.MaxValue;
+            row[3] = "string";
+            row[4] = "";
+
+            var parameters = new Tuple<string, object>[] {
+                new Tuple<string, object>("param0", true),
+                new Tuple<string, object>("param1", DateTime.Now),
+                new Tuple<string, object>("param2", long.MaxValue),
+                new Tuple<string, object>("param3", "string"),
+                new Tuple<string, object>("param4", "")
+            };
+            var query = $"INSERT INTO table([boolColumn], [dateColumn], [longColumn], [textColumn], [noTypeColumn]) " +
+                $"VALUES ({string.Join(", ", parameters.Select(p => p.Item1))})";
+
+            dbBuilder.InsertData(row);
+
+            sqliteService.Verify(x =>
+                x.ExecuteQuery(query, It.IsAny<IEnumerable<Tuple<string, object>>>()));
         }
     }
 }

@@ -43,22 +43,28 @@ namespace ExcelGuiFun.Utils
 
         public void InsertData(DataRowCollection rows)
         {
-            var insertStatement = $"INSERT INTO {_tableName}";
-            var columns = rows[0].Table.Columns.Cast<DataColumn>().Select(col => $"[{col.ColumnName}]");
-            var columnString = string.Join(", ", columns);
 
             sqliteService.ExecuteTransaction(() =>
             {
                 foreach (DataRow row in rows)
                 {
-                    var parameters = row.Table.Columns.Cast<DataColumn>()
-                        .Select((col, index) => new Tuple<string, object>($"param{index}", DataTypeExtensions.GetDynamicValue(col.DataType, row[col])));
-                    var parametersString = string.Join(", ", parameters.Select(param => param.Item1));
-
-                    var query = $"{insertStatement}({columnString}) VALUES ({parametersString})";
-                    sqliteService.ExecuteQuery(query, parameters);
+                    InsertData(row);
                 }
             });
+        }
+
+        public void InsertData(DataRow row)
+        {
+            var insertStatement = $"INSERT INTO {_tableName}";
+            var columns = row.Table.Columns.Cast<DataColumn>().Select(col => $"[{col.ColumnName}]");
+            var columnString = string.Join(", ", columns);
+
+            var parameters = row.Table.Columns.Cast<DataColumn>()
+                .Select((col, index) => new Tuple<string, object>($"param{index}", DataTypeExtensions.GetDynamicValue(col.DataType, row[col])));
+            var parametersString = string.Join(", ", parameters.Select(param => param.Item1));
+
+            var query = $"{insertStatement}({columnString}) VALUES ({parametersString})";
+            sqliteService.ExecuteQuery(query, parameters);
         }
     }
 }

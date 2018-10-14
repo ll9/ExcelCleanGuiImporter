@@ -1,4 +1,5 @@
 ﻿using ExcelGuiFun.Models;
+using ExcelGuiFun.Utils.Extensions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,11 +36,14 @@ namespace ExcelGuiFun.Utils
             var query = $"CREATE TABLE {_tableName}";
 
             var typeGuesser = new ColumnTypeGuesser(originalTable);
-            foreach (DataColumn column in originalTable.Columns)
-            {
-                var type = typeGuesser.GuessType(column).GetRealType();
-                dataTable.Columns.Add(column.ColumnName, type);
-            }
+
+            var columns = string.Join(
+                ",",
+                originalTable.Columns.Cast<DataColumn>().Select(col => $"{col.ColumnName} {col.DataType.GetSqlType()}")
+            );
+                
+
+            var finalQuery = $"{query} ({columns})";
         }
     }
 }

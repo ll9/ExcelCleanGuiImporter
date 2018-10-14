@@ -57,5 +57,19 @@ namespace ExcelGuiFun.Utils
         {
             CreateTable(dataTable.Columns);
         }
+
+        public void InsertData(DataRowCollection rows)
+        {
+            foreach (DataRow row in rows)
+            {
+                var insertStatement = $"INSERT INTO {_tableName}";
+                var columns = row.Table.Columns.Cast<DataColumn>().Select(col => $"[{col.ColumnName}]");
+                var parameters = columns.Select((col, index) => $"param{index}");
+                var columnString = string.Join(", ", columns);
+                var parametersString = string.Join(", ", parameters);
+
+                var query = $"{insertStatement}({columnString}) VALUES ({parameters})";
+            }
+        }
     }
 }

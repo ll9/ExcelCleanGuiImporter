@@ -9,19 +9,13 @@ using System.Threading.Tasks;
 
 namespace ExcelGuiFun.Utils
 {
-    public class TypeSafeDataTableConverter
+    public class DbBuilder
     {
+        private static string _tableName;
+
         public static DataTable Convert(DataTable originalTable)
         {
-            var dataTable = new DataTable();
-
-            // Create Columns
-            var typeGuesser = new ColumnTypeGuesser(originalTable);
-            foreach (DataColumn column in originalTable.Columns)
-            {
-                var type = typeGuesser.GuessType(column).GetRealType();
-                dataTable.Columns.Add(column.ColumnName, type);
-            }
+            CreateTable(originalTable);
 
             // Insert Rows
             foreach (DataRow row in dataTable.Rows)
@@ -34,6 +28,18 @@ namespace ExcelGuiFun.Utils
                 dataTable.Rows.Add(newRow);
             }
             return dataTable;
+        }
+
+        private static void CreateTable(DataTable originalTable)
+        {
+            var query = $"CREATE TABLE {_tableName}";
+
+            var typeGuesser = new ColumnTypeGuesser(originalTable);
+            foreach (DataColumn column in originalTable.Columns)
+            {
+                var type = typeGuesser.GuessType(column).GetRealType();
+                dataTable.Columns.Add(column.ColumnName, type);
+            }
         }
     }
 }

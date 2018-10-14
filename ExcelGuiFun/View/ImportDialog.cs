@@ -28,12 +28,12 @@ namespace ExcelGuiFun
         }
 
 
-        public void OnReadingExcel(object sender, EventArgs args)
+        private void OnReadingExcel(object sender, EventArgs args)
         {
             ReadingExcel?.Invoke(sender, EventArgs.Empty);
         }
 
-        public void OnStroringDb(object sender, EventArgs args)
+        private void OnStroringDb(object sender, EventArgs args)
         {
             StoringDb?.Invoke(sender, EventArgs.Empty);
         }

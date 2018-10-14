@@ -77,7 +77,7 @@
   <ItemGroup>
     <Compile Include="Models\DataTypes.cs" />
     <Compile Include="Presenter\Presenter.cs" />
-    <Compile Include="Utils\DataRowTypeGuesser.cs" />
+    <Compile Include="Utils\ColumnTypeGuesser.cs" />
     <Compile Include="Utils\ExcelReader.cs" />
     <Compile Include="Utils\TypeSafeDataTableConverter.cs" />
     <Compile Include="View\ImportDialog.cs">

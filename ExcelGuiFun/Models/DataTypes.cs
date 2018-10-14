@@ -20,11 +20,23 @@ namespace ExcelGuiFun.Models
         {
             switch(dataType)
             {
-                case (DataType.System_Bool): return typeof(bool);
+                case (DataType.System_Bool): return typeof(bool?);
                 case (DataType.System_Date): return typeof(DateTime);
-                case (DataType.System_Numeric): return typeof(long);
+                case (DataType.System_Numeric): return typeof(long?);
                 case (DataType.System_Text): return typeof(string);
                 default: return typeof(string);
+            }
+        }
+
+        public static dynamic GetDynamicValue(this DataType dataType, object value)
+        {
+            switch (dataType)
+            {
+                case (DataType.System_Bool): return bool.TryParse(value.ToString(), out var boolResult) ? (bool?)boolResult : null;
+                case (DataType.System_Date): return DateTime.TryParse(value.ToString(), out var dateResult) ? (DateTime?)dateResult : null;
+                case (DataType.System_Numeric): return long.TryParse(value.ToString(), out var longResult) ? (long?)longResult : null;
+                case (DataType.System_Text): return value?.ToString();
+                default: return value?.ToString();
             }
         }
     }

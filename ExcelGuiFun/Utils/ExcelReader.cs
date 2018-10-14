@@ -17,6 +17,7 @@ namespace ExcelGuiFun.Utils
         {
             _fileName = fileName;
             _workbook = xLWorkbook ?? new XLWorkbook(fileName);
+
         }
 
         /// <summary>
@@ -51,9 +52,9 @@ namespace ExcelGuiFun.Utils
                 dataTable.Rows.Add();
                 var cells = currentRow.Cells();
 
-                foreach (var cell in cells.Select((cell, indexer) => new { Value = cell, Index = indexer }))
+                foreach (var item in cells.Select((cell, indexer) => new { Cell = cell, Index = indexer }))
                 {
-                    dataTable.Rows[dataTable.Rows.Count - 1][cell.Index] = cell.Value;
+                    dataTable.Rows[dataTable.Rows.Count - 1][item.Index] = item.Cell.Value;
                 }
                 currentRow = currentRow.RowBelow();
             }

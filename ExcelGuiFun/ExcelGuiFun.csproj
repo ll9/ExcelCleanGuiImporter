@@ -99,6 +99,7 @@
     <Compile Include="Utils\Extensions\TypeExtensions.cs" />
     <Compile Include="Utils\ISqliteService.cs" />
     <Compile Include="Utils\SqliteService.cs" />
+    <Compile Include="ViewModels\PathViewModel.cs" />
     <Compile Include="View\ImportDialog.cs">
       <SubType>Form</SubType>
     </Compile>

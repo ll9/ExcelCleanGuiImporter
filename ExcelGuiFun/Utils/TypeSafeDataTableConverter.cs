@@ -1,6 +1,7 @@
 ﻿using ExcelGuiFun.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace ExcelGuiFun.Utils
         {
             var dataTable = new DataTable();
 
+            // Create Columns
             var typeGuesser = new ColumnTypeGuesser(originalTable);
             foreach (DataColumn column in originalTable.Columns)
             {
@@ -21,14 +23,17 @@ namespace ExcelGuiFun.Utils
                 dataTable.Columns.Add(column.ColumnName, type);
             }
 
+            // Insert Rows
             foreach (DataRow row in dataTable.Rows)
             {
                 var newRow = dataTable.NewRow();
-                foreach (var columnName in dataTable.Columns.Cast<DataColumn>().Select(col => col.ColumnName))
+                foreach (var item in dataTable.Columns.Cast<DataColumn>().Select(col => new { col.ColumnName, col.DataType }))
                 {
-                    //newRow[columnName] = row[columnName];
+                    newRow[item.ColumnName] = DataTypeExtensions.GetDynamicValue(item.DataType, row[item.ColumnName]);
                 }
+                dataTable.Rows.Add(newRow);
             }
+            return dataTable;
         }
     }
 }

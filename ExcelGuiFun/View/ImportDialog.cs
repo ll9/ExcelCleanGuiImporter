@@ -34,7 +34,6 @@ namespace ExcelGuiFun
         private void InitPathBinding()
         {
             PathBox.DataBindings.Add("Text", PathViewModel, nameof(PathViewModel.Path), false, DataSourceUpdateMode.OnPropertyChanged);
-            //PathBox.DataBindings.Add("Text", PathViewModel, nameof(PathViewModel.Path));
             PathPage.DataBindings.Add(nameof(PathPage.AllowNext), PathViewModel, nameof(PathViewModel.HasPath));
 
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -39,7 +40,7 @@ namespace ExcelGuiFun.ViewModels
         {
             if (e.PropertyName == nameof(Path))
             {
-                HasPath = !string.IsNullOrEmpty(Path);
+                HasPath = !string.IsNullOrEmpty(Path) && File.Exists(Path) && System.IO.Path.GetExtension(Path) == ".xlsx";
             }
         }
 

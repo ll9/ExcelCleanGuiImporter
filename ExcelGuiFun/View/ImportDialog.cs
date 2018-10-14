@@ -49,6 +49,7 @@ namespace ExcelGuiFun
         private void InitializePageCommitEvents()
         {
             PathPage.Commit += (sender, e) => OnReadingExcel(sender, EventArgs.Empty);
+            CoordinatePage.Commit += (sender, e) => OnStroringDb(sender, EventArgs.Empty);
         }
 
         private void InitPathBinding()

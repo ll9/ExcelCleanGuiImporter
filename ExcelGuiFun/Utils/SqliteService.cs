@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.SQLite;
 
 namespace ExcelGuiFun.Utils
@@ -14,7 +15,7 @@ namespace ExcelGuiFun.Utils
             _dbPath = dbPath;
         }
 
-        public void ExecuteQuery(string query, Tuple<string, object>[] parameters = null)
+        public void ExecuteQuery(string query, IEnumerable<Tuple<string, object>> parameters = null)
         {
             using (SQLiteConnection connection = GetConnection())
             using (var command = new SQLiteCommand(query, connection))
@@ -44,7 +45,7 @@ namespace ExcelGuiFun.Utils
             return connection;
         }
 
-        private static void AddCommandParameters(Tuple<string, object>[] parameters, SQLiteCommand command)
+        private static void AddCommandParameters(IEnumerable<Tuple<string, object>> parameters, SQLiteCommand command)
         {
             foreach (var commandParameter in parameters)
             {

@@ -30,7 +30,7 @@ namespace ExcelGuiFunUnitTests.Utils
 
             dbBuilder.CreateTable(table);
             sqliteService.Verify(x =>
-                x.ExecuteQuery("CREATE TABLE table (boolColumn BOOLEAN, dateColumn DATETIME, longColumn BIGINT, textColumn TEXT, noTypeColumn TEXT)"));
+                x.ExecuteQuery("CREATE TABLE table (boolColumn BOOLEAN, dateColumn DATETIME, longColumn BIGINT, textColumn TEXT, noTypeColumn TEXT)", null));
         }
     }
 }
